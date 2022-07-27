@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { FaSignInAlt } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../features/auth/authSlice'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +11,29 @@ const Login = () => {
 
   const { email, password } = formData
 
+  const dispatch = useDispatch()
+
+  // Global state
+  const { user, isError, isSuccess, isLoading, message } = useSelector(
+    (state) => state.auth
+  )
+
   const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const onSubmit = (e) => {
     e.preventDefault()
+
+    const userData = {
+      email,
+      password,
+    }
+
+    dispatch(login(userData))
   }
 
   return (
@@ -23,7 +46,7 @@ const Login = () => {
       </section>
 
       <section className='form'>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
               type='email'
