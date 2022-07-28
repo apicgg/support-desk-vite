@@ -1,4 +1,4 @@
-const asyncHandler = require('express-async-handler')
+const expressAsyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
@@ -6,7 +6,7 @@ const User = require('../models/userModel')
 // Register a new user
 // /api/users
 // @public access
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = expressAsyncHandler(async (req, res) => {
   const { name, email, password } = req.body
 
   // Validation
@@ -50,7 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // Login users
 // /api/users/login
 // @public access
-const loginUser = asyncHandler(async (req, res) => {
+const loginUser = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   // Find user in the DB
@@ -73,7 +73,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // Get current user
 // /api/users/me
 // @private access
-const getMe = asyncHandler(async (req, res) => {
+const getMe = expressAsyncHandler(async (req, res) => {
   const user = {
     id: req.user._id,
     name: req.user.name,
