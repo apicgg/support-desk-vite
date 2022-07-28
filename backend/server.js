@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config()
 const { errorHandler } = require('./middleware/errorMiddleware')
 const colors = require('colors')
 const connectDB = require('./config/db')
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 5000
 
 // Connect to MongoDB
 connectDB()
@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 
 // Base Route
 app.use('/api/users', require('./routes/userRoute'))
+app.use('/api/tickets', require('./routes/ticketRoute'))
 
 // Error middleware
 app.use(errorHandler)
