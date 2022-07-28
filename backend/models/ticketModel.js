@@ -12,7 +12,7 @@ const ticketSchema = mongoose.Schema(
       required: [true, 'Please select a product'],
       enum: ['iPhone', 'Macbook', 'iPad', 'iMac'],
     },
-    password: {
+    description: {
       type: String,
       required: [true, 'Please describe the issue'],
     },
