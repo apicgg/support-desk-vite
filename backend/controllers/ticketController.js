@@ -79,4 +79,76 @@ const createTicket = expressAsyncHandler(async (req, res) => {
   res.status(201).json(ticket)
 })
 
-module.exports = { getTickets, getTicket, createTicket }
+// Delete ticket
+// DELETE /api/tickets/:id
+// @access Private
+const deleteTicket = expressAsyncHandler(async (req, res) => {
+  // Get user using jwt token
+  const user = await User.findById(req.user.id)
+
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  const ticket = await Ticket.findById(req.params.id)
+
+  // const ticket = await Ticket.findOne({ _id: req.params.id, user: req.user.id })
+
+  if (!ticket) {
+    res.status(404)
+    throw new Error('Ticket not found')
+  }
+
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('Not authorized')
+  }
+
+  await ticket.remove()
+
+  res.status(200).json({ success: true })
+})
+
+// Update ticket
+// PUT /api/tickets/:id
+// @access Private
+const updateTicket = expressAsyncHandler(async (req, res) => {
+  // Get user using jwt token
+  const user = await User.findById(req.user.id)
+
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  const ticket = await Ticket.findById(req.params.id)
+
+  // const ticket = await Ticket.findOne({ _id: req.params.id, user: req.user.id })
+
+  if (!ticket) {
+    res.status(404)
+    throw new Error('Ticket not found')
+  }
+
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('Not authorized')
+  }
+
+  const updatedTicket = await Ticket.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  )
+
+  res.status(200).json(updatedTicket)
+})
+
+module.exports = {
+  getTickets,
+  getTicket,
+  createTicket,
+  deleteTicket,
+  updateTicket,
+}
