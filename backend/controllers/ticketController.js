@@ -20,6 +20,35 @@ const getTickets = expressAsyncHandler(async (req, res) => {
   res.status(200).json(tickets)
 })
 
+// Get user ticket
+// GET /api/tickets/:id
+// @access Private
+const getTicket = expressAsyncHandler(async (req, res) => {
+  // Get user using jwt token
+  const user = await User.findById(req.user.id)
+
+  if (!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  const ticket = await Ticket.findById(req.params.id)
+
+  // const ticket = await Ticket.findOne({ _id: req.params.id, user: req.user.id })
+
+  if (!ticket) {
+    res.status(404)
+    throw new Error('Ticket not found')
+  }
+
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401)
+    throw new Error('Not authorized')
+  }
+
+  res.status(200).json(ticket)
+})
+
 // Create new ticket
 // POST /api/tickets
 // @access Private
@@ -50,4 +79,4 @@ const createTicket = expressAsyncHandler(async (req, res) => {
   res.status(201).json(ticket)
 })
 
-module.exports = { getTickets, createTicket }
+module.exports = { getTickets, getTicket, createTicket }
