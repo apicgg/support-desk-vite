@@ -34,7 +34,7 @@ const NewTicket = () => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    dispatch(createTicket(product, description))
+    dispatch(createTicket({ product, description }))
   }
 
   if (isLoading) {
