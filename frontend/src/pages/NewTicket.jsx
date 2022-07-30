@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner'
 
 const NewTicket = () => {
   const { user } = useSelector((state) => state.auth)
-  const { isLoading, isError, isScuccess, message } = useSelector(
+  const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.ticket
   )
 
@@ -23,13 +23,13 @@ const NewTicket = () => {
     if (isError) {
       toast.error(message)
     }
-    if (isScuccess) {
+    if (isSuccess) {
       dispatch(reset())
       navigate('/tickets')
     }
 
     dispatch(reset())
-  }, [isError, isScuccess, dispatch, navigate, message])
+  }, [isError, isSuccess, dispatch, navigate, message])
 
   const onSubmit = (e) => {
     e.preventDefault()
