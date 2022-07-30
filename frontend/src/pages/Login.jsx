@@ -72,6 +72,7 @@ const Login = () => {
               type='email'
               name='email'
               id='email'
+              className='form-control'
               placeholder='Enter your email'
               required
               onChange={onChange}
@@ -82,6 +83,7 @@ const Login = () => {
               type='password'
               name='password'
               id='password'
+              className='form-control'
               placeholder='Enter your password'
               required
               onChange={onChange}
