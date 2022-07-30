@@ -9,6 +9,7 @@ const Ticket = require('../models/ticketModel')
 const getTickets = expressAsyncHandler(async (req, res) => {
   // Get user using jwt token
   const user = await User.findById(req.user.id)
+  // console.log(user)
 
   if (!user) {
     res.status(401)
@@ -16,6 +17,7 @@ const getTickets = expressAsyncHandler(async (req, res) => {
   }
 
   const tickets = await Ticket.find({ user: req.user.id })
+  // console.log(tickets)
 
   res.status(200).json(tickets)
 })
