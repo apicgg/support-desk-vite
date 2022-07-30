@@ -2,6 +2,8 @@
 
 Support ticket application built with the MERN stack. This is a project from [React Front To Back by Brad Traversy](https://www.udemy.com/course/react-front-to-back-2022/?referralCode=4A622C7E48DB66154114) course.
 
+This project is a fork from [bradtraversy/support-desk](https://github.com/bradtraversy/support-desk)
+
 ## Usage
 
 ### Set Environment Variables
